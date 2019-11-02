@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
-const uri = process.env.MUMU || "mongodb://localhost/vendinhas";
+const uri = process.env.MONGO_URI || "mongodb://localhost/vendinhas";
 
 mongoose.connect(uri, {
   useCreateIndex: true,
