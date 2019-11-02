@@ -1,75 +1,75 @@
-const User = require("../models/User").default;
+import User from "../models/User";
+import { emptyOrNull } from "../config/validation";
 
-module.exports = app => {
-  const { emptyOrNull } = app.controllers.errorHandler;
+export const save = async (req, res) => {
+  const { email } = req.body;
+  try {
+    if (await User.findOne({ email })) throw "Usuário já existe";
 
-  const save = async (req, res) => {
-    const { email } = req.body;
-    try {
-      if (await User.findOne({ email })) throw "Usuário já existe";
+    const user = await User.create(req.body);
+    emptyOrNull(user, "nenhum usuário");
 
-      const user = await User.create(req.body);
-      emptyOrNull(user, "nenhum usuário");
+    user.password = undefined;
+    return res.send({ user });
+  } catch (err) {
+    res.status(400).send({ erro: `${err}` });
+  }
+};
 
-      user.password = undefined;
+export const getUser = async (req, res) => {
+  const { email } = req.body;
+  const id = req.params.id;
+  try {
+    if (!id && !email) throw "sem dados para pesquisar";
+
+    if (id) {
+      let user = await User.findById(id);
       return res.send({ user });
-    } catch (err) {
-      res.status(400).send({ erro: `${err}` });
     }
-  };
 
-  const getUser = async (req, res) => {
-    const { email } = req.body;
-    const id = req.params.id;
-    try {
-      if (!id && !email) throw "sem dados para pesquisar";
-
-      if (id) {
-        let user = await User.findById(id);
-        return res.send({ user });
-      }
-
-      if (email) {
-        let user = await User.findOne({ email });
-        return res.send({ user });
-      }
-    } catch (err) {
-      res.status(400).send({ erro: `${err}` });
+    if (email) {
+      let user = await User.findOne({ email });
+      return res.send({ user });
     }
-  };
+  } catch (err) {
+    res.status(400).send({ erro: `${err}` });
+  }
+};
 
-  const updateUser = async (req, res) => {
-    const id = req.params.id;
-    const { email, fullname, password } = req.body;
+export const updateUser = async (req, res) => {
+  const id = req.params.id;
+  const doc = req.body;
 
-    try {
-      emptyOrNull(id, "id inválido");
-      let user = await User.findById(id, (err, doc) => {
-        if (err) throw "Nenhum registro encontrado";
+  try {
+    emptyOrNull(id, "id inválido");
+    emptyOrNull(doc, "sem dados para alteração");
 
-        if (email) doc.email = email;
-        if (fullname) doc.fullname = fullname;
-        if (password) doc.password = password;
-        doc.save();
+    await User.findByIdAndUpdate(id, doc, { new: true })
+      .then(docs => {
+        if (docs) {
+          res.send({ docs });
+        } else {
+          throw "Alteração não pode ser feita";
+        }
+      })
+      .catch(err => {
+        throw err;
       });
-      return res.send({ user });
-    } catch (err) {
-      res.status(400).send({ erro: `${err}` });
-    }
-  };
+    // return res.send("Alteração feita com sucesso.");
+  } catch (err) {
+    res.status(400).send({ erro: `${err}` });
+  }
+};
 
-  const deleteUser = async (req, res) => {
-    const id = req.params.id;
+export const deleteUser = async (req, res) => {
+  const id = req.params.id;
 
-    try {
-      emptyOrNull(id, "Usuário não encontrado");
-      if (!(await User.findById(id))) throw "Usuário não encontrado";
-      await User.findByIdAndRemove(id);
-      return res.send("Usuário removido com sucesso");
-    } catch (err) {
-      res.status(400).send({ erro: `${err}` });
-    }
-  };
-
-  return { save, getUser, updateUser, deleteUser };
+  try {
+    emptyOrNull(id, "Usuário não encontrado");
+    if (!(await User.findById(id))) throw "Usuário não encontrado";
+    await User.findByIdAndRemove(id);
+    return res.send("Usuário removido com sucesso");
+  } catch (err) {
+    res.status(400).send({ erro: `${err}` });
+  }
 };

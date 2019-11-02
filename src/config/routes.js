@@ -1,12 +1,22 @@
-module.exports = app => {
-  // Register route
-  app.post("/signup", app.controllers.userHandler.save);
+import express from "express";
+import {
+  save,
+  getUser,
+  updateUser,
+  deleteUser
+} from "../controllers/userHandler";
 
-  app.route("/users").all(app.controllers.userHandler.getUser);
+const routes = express.Router();
 
-  app
-    .route("/users/:id")
-    .get(app.controllers.userHandler.getUser)
-    .put(app.controllers.userHandler.updateUser)
-    .delete(app.controllers.userHandler.deleteUser);
-};
+// Register routes
+routes.post("/signup", save);
+
+routes.route("/users").all(getUser);
+
+routes
+  .route("/users/:id")
+  .get(getUser)
+  .put(updateUser)
+  .delete(deleteUser);
+
+export default routes;

@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/vendinhas", {
+require("dotenv").config();
+
+const uri = process.env.MUMU || "mongodb://localhost/vendinhas";
+
+mongoose.connect(uri, {
   useCreateIndex: true,
   useUnifiedTopology: true,
   useNewUrlParser: true,
