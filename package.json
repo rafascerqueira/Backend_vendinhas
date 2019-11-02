@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec babel-node index.js",
-    "start": "babel-node index.js"
+    "dev": "nodemon --exec babel-node src/index.js",
+    "build": "babel -d ./dist ./src -s",
+    "start": "node ./dist/index.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -17,6 +18,7 @@
     "mongoose": "^5.7.7"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
