@@ -1,7 +1,7 @@
 import mongoose from "../database";
 import bcrypt from "bcryptjs";
 
-const salt = parseInt(process.env.SALT) || 10;
+const salt = bcrypt.genSaltSync();
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -29,8 +29,8 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-UserSchema.pre("save", async function(next) {
-  const hash = await bcrypt.hash(this.password, salt);
+UserSchema.pre("save", function(next) {
+  const hash = bcrypt.hashSync(this.password, salt);
   this.password = hash;
 
   next();
