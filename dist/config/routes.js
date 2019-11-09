@@ -9,14 +9,20 @@ var _express = _interopRequireDefault(require("express"));
 
 var _userHandler = require("../controllers/userHandler");
 
+var _auth = require("./auth");
+
+var _passport = _interopRequireDefault(require("./passport"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const routes = _express.default.Router(); // Register routes
+const routes = _express.default.Router();
 
-
+const auth = (0, _passport.default)();
 routes.post("/signup", _userHandler.save);
-routes.route("/users").all(_userHandler.getUser);
-routes.route("/users/:id").get(_userHandler.getUser).put(_userHandler.updateUser).delete(_userHandler.deleteUser);
+routes.post("/signin", _auth.signin);
+routes.post("/validate", _auth.validateToken);
+routes.route("/users").all(auth.authenticate()).get(_userHandler.getUser);
+routes.route("/users/:id").all(auth.authenticate()).get(_userHandler.getUser).put(_userHandler.updateUser).delete(_userHandler.deleteUser);
 var _default = routes;
 exports.default = _default;
 //# sourceMappingURL=routes.js.map

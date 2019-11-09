@@ -55,7 +55,6 @@ export const updateUser = async (req, res) => {
       .catch(err => {
         throw err;
       });
-    // return res.send("Alteração feita com sucesso.");
   } catch (err) {
     res.status(400).send({ erro: `${err}` });
   }

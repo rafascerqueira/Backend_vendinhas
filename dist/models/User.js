@@ -11,7 +11,8 @@ var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const salt = parseInt(process.env.SALT) || 10;
+const salt = _bcryptjs.default.genSaltSync();
+
 const UserSchema = new _database.default.Schema({
   email: {
     type: String,
@@ -37,8 +38,9 @@ const UserSchema = new _database.default.Schema({
     default: false
   }
 });
-UserSchema.pre("save", async function (next) {
-  const hash = await _bcryptjs.default.hash(this.password, salt);
+UserSchema.pre("save", function (next) {
+  const hash = _bcryptjs.default.hashSync(this.password, salt);
+
   this.password = hash;
   next();
 });
