@@ -5,6 +5,7 @@ import {
   updateUser,
   deleteUser
 } from "../controllers/userHandler";
+import { store, index } from "../controllers/customerHandler";
 import { signin, validateToken } from "./auth";
 import passport from "./passport";
 
@@ -26,5 +27,11 @@ routes
   .get(getUser)
   .put(updateUser)
   .delete(deleteUser);
+
+routes
+  .route("/customer")
+  .all(auth.authenticate())
+  .get(index)
+  .post(store);
 
 export default routes;

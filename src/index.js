@@ -4,6 +4,8 @@ import routes from "./config/routes";
 const app = express();
 const port = process.env.PORT || 3000;
 
+require("./database/postgres");
+
 app.use(express.json());
 app.use(routes);
 

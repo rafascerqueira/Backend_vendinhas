@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/User";
 import { emptyOrNull, isTokenExpired } from "./validation";
 
+// require("dotenv").config();
 const secret = process.env.AUTH_SECRET;
 
 export const signin = async (req, res) => {

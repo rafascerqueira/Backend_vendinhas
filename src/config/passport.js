@@ -2,6 +2,7 @@ import passport from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
 import User from "../models/User";
 
+// require("dotenv").config();
 const secret = process.env.AUTH_SECRET;
 
 export default function() {
