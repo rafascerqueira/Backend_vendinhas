@@ -1,4 +1,5 @@
 // require("dotenv").config();
+// change src/database/postgres.js to use
 module.exports = {
   dialect: "postgres",
   host: process.env.DATABASE_URL,
