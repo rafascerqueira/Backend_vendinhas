@@ -8,5 +8,8 @@ module.exports = {
   define: {
     timestamps: true,
     underscored: true
+  },
+  production: {
+    use_env_variable: "DATABASE_URL"
   }
 };
