@@ -3,6 +3,7 @@ const Sequelize = require("sequelize");
 
 const Customer = require("../models/Customer");
 
+// const connection = new Sequelize(dbConfig);
 const connection = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
   protocol: "postgres",
