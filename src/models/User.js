@@ -1,4 +1,4 @@
-import mongoose from "../database";
+import mongoose from "../database/mongodb";
 import bcrypt from "bcryptjs";
 
 const salt = bcrypt.genSaltSync();

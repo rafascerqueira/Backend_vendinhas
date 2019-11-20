@@ -1,12 +1,27 @@
-// require("dotenv").config();
+require("dotenv").config();
 module.exports = {
-  dialect: "postgres",
-  host: process.env.DATABASE_URL,
-  username: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
-  define: {
-    timestamps: true,
-    underscored: true
+  development: {
+    username: process.env.PG_USER,
+    password: process.env.PG_PSWD,
+    database: "vendinhas_dev",
+    host: process.env.PG_HOST,
+    dialect: "postgres",
+    operatorsAliases: false
+  },
+  test: {
+    username: process.env.PG_USER,
+    password: process.env.PG_PSWD,
+    database: "vendinhas_test",
+    host: process.env.PG_HOST,
+    dialect: "postgres",
+    operatorsAliases: false
+  },
+  production: {
+    username: process.env.PG_USER,
+    password: process.env.PG_PSWD,
+    database: "vendinhas_production",
+    host: process.env.PG_HOST,
+    dialect: "postgres",
+    operatorsAliases: false
   }
 };

@@ -1,6 +1,8 @@
 "use strict";
 
-const Customer = require("../models/Customer");
+const {
+  Customer
+} = require("../database/postgres/models");
 
 module.exports = {
   async index(req, res) {

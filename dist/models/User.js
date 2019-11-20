@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _database = _interopRequireDefault(require("../database"));
+var _mongodb = _interopRequireDefault(require("../database/mongodb"));
 
 var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 
@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const salt = _bcryptjs.default.genSaltSync();
 
-const UserSchema = new _database.default.Schema({
+const UserSchema = new _mongodb.default.Schema({
   email: {
     type: String,
     unique: true,
@@ -45,7 +45,7 @@ UserSchema.pre("save", function (next) {
   next();
 });
 
-const User = _database.default.model("User", UserSchema);
+const User = _mongodb.default.model("User", UserSchema);
 
 var _default = User;
 exports.default = _default;

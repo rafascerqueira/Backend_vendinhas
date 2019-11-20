@@ -15,7 +15,8 @@ var _validation = require("./validation");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// require("dotenv").config();
+require("dotenv").config();
+
 const secret = process.env.AUTH_SECRET;
 
 const signin = async (req, res) => {

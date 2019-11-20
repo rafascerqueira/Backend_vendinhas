@@ -8,9 +8,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const app = (0, _express.default)();
 const port = process.env.PORT || 3000;
-
-require("./database/postgres");
-
 app.use(_express.default.json());
 app.use(_routes.default);
 app.listen(port, () => {
