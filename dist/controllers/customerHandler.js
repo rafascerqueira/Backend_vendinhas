@@ -12,11 +12,11 @@ module.exports = {
 
   async store(req, res) {
     const {
-      name,
+      fullname,
       email
     } = req.body;
     const customer = await Customer.create({
-      name,
+      fullname,
       email
     });
     return res.json(customer);

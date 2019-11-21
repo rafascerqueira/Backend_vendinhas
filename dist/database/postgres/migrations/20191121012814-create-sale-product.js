@@ -2,25 +2,38 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Sales", {
+    return queryInterface.createTable("Sale_products", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      date: {
-        type: Sequelize.DATE
-      },
-      customerId: {
+      saleId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Customers",
+          model: "Sales",
           key: "id"
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
+      },
+      productId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Products",
+          key: "id"
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+      },
+      quantity: {
+        type: Sequelize.INTEGER
+      },
+      amount: {
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,
@@ -33,7 +46,7 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Sales");
+    return queryInterface.dropTable("Sale_products");
   }
 };
-//# sourceMappingURL=20191120022017-create-sale.js.map
+//# sourceMappingURL=20191121012814-create-sale-product.js.map
