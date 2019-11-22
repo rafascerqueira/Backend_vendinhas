@@ -6,6 +6,10 @@ import {
   deleteUser
 } from "../controllers/userHandler";
 import { store, index } from "../controllers/customerHandler";
+import {
+  store as storeProd,
+  index as getProd
+} from "../controllers/productHandler";
 import { signin, validateToken } from "./auth";
 import passport from "./passport";
 
@@ -33,5 +37,11 @@ routes
   .all(auth.authenticate())
   .get(index)
   .post(store);
+
+routes
+  .route("/product")
+  .all(auth.authenticate())
+  .get(getProd)
+  .post(storeProd);
 
 export default routes;
