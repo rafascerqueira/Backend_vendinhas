@@ -11,6 +11,8 @@ var _userHandler = require("../controllers/userHandler");
 
 var _customerHandler = require("../controllers/customerHandler");
 
+var _productHandler = require("../controllers/productHandler");
+
 var _auth = require("./auth");
 
 var _passport = _interopRequireDefault(require("./passport"));
@@ -26,6 +28,7 @@ routes.post("/validate", _auth.validateToken);
 routes.route("/users").all(auth.authenticate()).get(_userHandler.getUser);
 routes.route("/users/:id").all(auth.authenticate()).get(_userHandler.getUser).put(_userHandler.updateUser).delete(_userHandler.deleteUser);
 routes.route("/customer").all(auth.authenticate()).get(_customerHandler.index).post(_customerHandler.store);
+routes.route("/product").all(auth.authenticate()).get(_productHandler.index).post(_productHandler.store);
 var _default = routes;
 exports.default = _default;
 //# sourceMappingURL=routes.js.map

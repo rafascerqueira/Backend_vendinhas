@@ -13,7 +13,8 @@ var _User = _interopRequireDefault(require("../models/User"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// require("dotenv").config();
+require("dotenv").config();
+
 const secret = process.env.AUTH_SECRET;
 
 function _default() {
