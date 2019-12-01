@@ -13,12 +13,16 @@ var _customerHandler = require("../controllers/customerHandler");
 
 var _productHandler = require("../controllers/productHandler");
 
+var _shopHandler = require("../controllers/shopHandler");
+
 var _auth = require("./auth");
 
 var _passport = _interopRequireDefault(require("./passport"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Tá uma bagunça, eu sei. Vou ver se arrumo isso com o Consign.
+// I know that code are messy. I'll improve this with Consign in later.
 const routes = _express.default.Router();
 
 const auth = (0, _passport.default)();
@@ -29,6 +33,8 @@ routes.route("/users").all(auth.authenticate()).get(_userHandler.getUser);
 routes.route("/users/:id").all(auth.authenticate()).get(_userHandler.getUser).put(_userHandler.updateUser).delete(_userHandler.deleteUser);
 routes.route("/customer").all(auth.authenticate()).get(_customerHandler.index).post(_customerHandler.store);
 routes.route("/product").all(auth.authenticate()).get(_productHandler.index).post(_productHandler.store);
+routes.route("/shop/:id").all(auth.authenticate()).get(_shopHandler.index).post(_shopHandler.shopStore);
+routes.route("/shop").all(auth.authenticate()).get(_shopHandler.index);
 var _default = routes;
 exports.default = _default;
 //# sourceMappingURL=routes.js.map
