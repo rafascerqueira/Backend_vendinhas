@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
   Product.associate = function (models) {
     // associations can be defined here
     Product.belongsToMany(models.Sale, {
-      foreignKey: "productId",
-      through: "Sale_product",
+      foreignKey: "saleId",
+      through: "SaleProduct",
       as: "sales"
     });
   };

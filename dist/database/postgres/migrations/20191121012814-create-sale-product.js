@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Sale_products", {
+    return queryInterface.createTable("SaleProducts", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -46,7 +46,7 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Sale_products");
+    return queryInterface.dropTable("SaleProducts");
   }
 };
 //# sourceMappingURL=20191121012814-create-sale-product.js.map

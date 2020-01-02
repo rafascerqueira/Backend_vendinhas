@@ -35,6 +35,7 @@ routes.route("/customer").all(auth.authenticate()).get(_customerHandler.index).p
 routes.route("/product").all(auth.authenticate()).get(_productHandler.index).post(_productHandler.store);
 routes.route("/shop/:id").all(auth.authenticate()).get(_shopHandler.index).post(_shopHandler.shopStore);
 routes.route("/shop").all(auth.authenticate()).get(_shopHandler.index);
+routes.route("/cart/:id").all(auth.authenticate()).get(_shopHandler.showCart).post(_shopHandler.cart);
 var _default = routes;
 exports.default = _default;
 //# sourceMappingURL=routes.js.map

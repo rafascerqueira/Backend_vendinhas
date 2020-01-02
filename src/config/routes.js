@@ -10,7 +10,12 @@ import {
   store as storeProd,
   index as getProd
 } from "../controllers/productHandler";
-import { shopStore, index as getShop } from "../controllers/shopHandler";
+import {
+  shopStore,
+  index as getShop,
+  cart,
+  showCart
+} from "../controllers/shopHandler";
 import { signin, validateToken } from "./auth";
 import passport from "./passport";
 // Tá uma bagunça, eu sei. Vou ver se arrumo isso com o Consign.
@@ -57,5 +62,11 @@ routes
   .route("/shop")
   .all(auth.authenticate())
   .get(getShop);
+
+routes
+  .route("/cart/:id")
+  .all(auth.authenticate())
+  .get(showCart)
+  .post(cart);
 
 export default routes;
