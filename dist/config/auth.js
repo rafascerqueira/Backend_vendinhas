@@ -62,7 +62,7 @@ const validateToken = async (req, res) => {
       const token = _jsonwebtoken.default.decode(user.token, secret);
 
       const result = (0, _validation.isTokenExpired)(token);
-      res.send(result);
+      await res.send(result);
     }
   } catch (err) {
     res.status(403).send({

@@ -14,6 +14,7 @@ const emptyOrNull = (value, msg) => {
 exports.emptyOrNull = emptyOrNull;
 
 const isTokenExpired = token => {
+  if (!token) return false;
   let dateExp = token.exp;
 
   if (new Date(dateExp * 1000) > new Date()) {
