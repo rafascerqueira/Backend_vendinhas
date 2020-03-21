@@ -46,7 +46,7 @@ export const validateToken = async (req, res) => {
       const token = jwt.decode(user.token, secret);
       const result = isTokenExpired(token);
 
-      res.send(result);
+      await res.send(result);
     }
   } catch (err) {
     res.status(403).send({ Erro: `${err}` });
