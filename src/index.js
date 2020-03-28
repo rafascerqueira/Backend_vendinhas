@@ -2,10 +2,12 @@ import express from "express";
 import cors from "cors";
 import routes from "./config/routes";
 
+require("dotenv").config();
+
 const app = express();
 const port = process.env.PORT || 3001;
 const corsOpts = {
-  origin: process.env.BASEURL || "http://localhost:3000",
+  origin: process.env.BASEURL,
   optionsSuccessStatus: 200
 };
 
