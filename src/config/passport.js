@@ -2,13 +2,13 @@ import passport from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
 import User from "../models/User";
 
-require("dotenv").config();
+import "dotenv/config";
 const secret = process.env.AUTH_SECRET;
 
-export default function() {
+export default function () {
   const opts = {
     secretOrKey: secret,
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   };
   const strategy = new Strategy(opts, (payload, done) => {
     User.findById(payload.id, (err, user) => {
@@ -26,6 +26,6 @@ export default function() {
   passport.use(strategy);
 
   return {
-    authenticate: () => passport.authenticate("jwt", { session: false })
+    authenticate: () => passport.authenticate("jwt", { session: false }),
   };
 }

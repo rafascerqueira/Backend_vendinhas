@@ -11,9 +11,9 @@ var _passportJwt = require("passport-jwt");
 
 var _User = _interopRequireDefault(require("../models/User"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+require("dotenv/config");
 
-require("dotenv").config();
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const secret = process.env.AUTH_SECRET;
 

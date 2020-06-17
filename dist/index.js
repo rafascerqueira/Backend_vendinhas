@@ -6,12 +6,14 @@ var _cors = _interopRequireDefault(require("cors"));
 
 var _routes = _interopRequireDefault(require("./config/routes"));
 
+require("dotenv/config");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const app = (0, _express.default)();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT;
 const corsOpts = {
-  origin: "http://localhost:3000",
+  origin: process.env.BASEURL,
   optionsSuccessStatus: 200
 };
 app.use(_express.default.json());

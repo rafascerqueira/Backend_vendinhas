@@ -4,13 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     "Customer",
     {
       fullname: DataTypes.STRING,
-      email: DataTypes.STRING
+      email: DataTypes.STRING,
     },
     {}
   );
-  Customer.associate = function(models) {
+  Customer.associate = function (models) {
     // associations can be defined here
-    Customer.hasMany(models.Sale, { foreignKey: "customerId", as: "Sales" });
   };
   return Customer;
 };

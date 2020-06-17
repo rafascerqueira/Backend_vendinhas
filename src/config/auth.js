@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/User";
 import { emptyOrNull, isTokenExpired } from "./validation";
 
-require("dotenv").config();
+import "dotenv/config";
 const secret = process.env.AUTH_SECRET;
 
 export const signin = async (req, res) => {
@@ -27,12 +27,12 @@ export const signin = async (req, res) => {
       name: user.fullname,
       admin: user.admin,
       iat: now,
-      exp: now + Math.pow(60, 2) * 24 * 1
+      exp: now + Math.pow(60, 2) * 24 * 1,
     };
 
     res.json({
       ...payload,
-      token: jwt.sign(payload, secret)
+      token: jwt.sign(payload, secret),
     });
   } catch (err) {
     res.status(400).send({ erro: `${err}` });

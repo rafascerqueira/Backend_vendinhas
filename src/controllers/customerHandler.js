@@ -10,8 +10,11 @@ module.exports = {
   async store(req, res) {
     const { fullname, email } = req.body;
 
-    const customer = await Customer.create({ fullname, email });
-
-    return res.json(customer);
-  }
+    try {
+      const customer = await Customer.create({ fullname, email });
+      return res.json(customer);
+    } catch (error) {
+      return res.json(error);
+    }
+  },
 };
