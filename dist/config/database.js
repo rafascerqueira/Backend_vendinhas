@@ -8,24 +8,21 @@ module.exports = {
     password: process.env.PG_PSWD,
     database: process.env.PG_DBNM,
     host: process.env.PG_HOST,
-    dialect: "postgres",
-    operatorsAliases: false
+    dialect: "postgres"
   },
   test: {
     username: process.env.PG_USER,
     password: process.env.PG_PSWD,
     database: "vendinhas_test",
     host: process.env.PG_HOST,
-    dialect: "postgres",
-    operatorsAliases: false
+    dialect: "postgres"
   },
   production: {
     username: process.env.PG_USER,
     password: process.env.PG_PSWD,
     database: process.env.PG_DBNM,
     host: process.env.PG_HOST,
-    dialect: "postgres",
-    operatorsAliases: false
+    dialect: "postgres"
   }
 };
 //# sourceMappingURL=database.js.map
