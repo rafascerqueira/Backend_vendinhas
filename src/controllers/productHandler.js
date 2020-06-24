@@ -2,9 +2,13 @@ const { Product } = require("../database/postgres/models");
 
 module.exports = {
   async index(req, res) {
-    const prod = await Product.findAll();
+    try {
+      const prod = await Product.findAll();
 
-    return res.send(prod);
+      return res.json(prod);
+    } catch (error) {
+      return res.json(error);
+    }
   },
   async store(req, res) {
     const { name, unit, size, price } = req.body;
@@ -12,5 +16,5 @@ module.exports = {
     const prod = await Product.create({ name, unit, size, price });
 
     return res.json(prod);
-  }
+  },
 };
