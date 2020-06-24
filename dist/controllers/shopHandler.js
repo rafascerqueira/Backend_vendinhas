@@ -1,73 +1,58 @@
 "use strict";
 
 const {
-  Sale,
-  SaleProduct,
-  Product,
-  Customer
+  Order,
+  Order_items,
+  Product
 } = require("../database/postgres/models");
 
 module.exports = {
   async index(req, res) {
-    const customers = await Sale.findAll({
-      include: [{
-        model: Customer,
-        as: "customer",
-        attributes: [["fullname", "name"]]
-      }]
-    });
-    return res.json(customers);
+    const shop = await Order_items.findAll();
+    return res.json(shop);
   },
 
-  async shopStore(req, res) {
-    const customerId = req.params.id;
-    const invoice = await Sale.create({
-      customerId
-    });
-    return res.json(invoice);
-  },
+  async store(req, res) {
+    const {
+      orderId,
+      productId,
+      quantity
+    } = req.body;
 
-  async cart(req, res) {
-    const saleId = req.params.id;
-    const product = req.body;
-    let amount = await Product.findOne({
-      where: {
-        id: product.id
-      },
-      attributes: ["price"]
-    }).then(data => data.get("price")).then(value => (value * product.count).toFixed(2)).catch(e => {
-      e;
-    });
-    let addCart = await SaleProduct.create({
-      saleId,
-      productId: product.id,
-      quantity: product.count,
-      amount
-    });
-    return res.json(addCart);
-  },
-
-  async showCart(req, res) {
-    const opt = req.params; // The code below deserve best pratice,
-    // 2 queries is not good but I'll not find the best way to clean this
-
-    const itemCart = await SaleProduct.findAll({
-      include: [{
-        model: Product
-      }],
-      where: {
-        saleId: opt.id
-      }
-    });
-    const saleCart = await Sale.findOne({
-      where: {
-        id: opt.id
-      }
-    });
-    return res.json({
-      saleCart,
-      itemCart
-    });
+    try {
+      const purchase = await Order_items.create({
+        order_id: orderId,
+        product_id: productId,
+        quantity
+      });
+      const {
+        price
+      } = await Product.findOne({
+        attributes: ["price"],
+        where: {
+          id: productId
+        }
+      });
+      const {
+        total_amount
+      } = await Order.findOne({
+        attributes: ["total_amount"],
+        where: {
+          id: orderId
+        }
+      });
+      const amount = parseFloat(total_amount) + price * quantity;
+      await Order.update({
+        total_amount: amount
+      }, {
+        where: {
+          id: orderId
+        }
+      });
+      return res.json(purchase);
+    } catch (error) {
+      return res.json(error);
+    }
   }
 
 };

@@ -6,8 +6,12 @@ const {
 
 module.exports = {
   async index(req, res) {
-    const prod = await Product.findAll();
-    return res.send(prod);
+    try {
+      const prod = await Product.findAll();
+      return res.json(prod);
+    } catch (error) {
+      return res.json(error);
+    }
   },
 
   async store(req, res) {
