@@ -13,6 +13,7 @@ import {
 import {
   store as newProduct,
   index as showProducts,
+  update as updtProduct,
 } from "../controllers/productHandler";
 import {
   store as newOrder,
@@ -53,7 +54,8 @@ routes
   .route("/product")
   .all(auth.authenticate())
   .get(showProducts)
-  .post(newProduct);
+  .post(newProduct)
+  .put(updtProduct);
 
 routes
   .route("/order")

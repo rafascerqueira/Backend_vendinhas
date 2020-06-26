@@ -28,6 +28,31 @@ module.exports = {
       price
     });
     return res.json(prod);
+  },
+
+  async update(req, res) {
+    const {
+      id,
+      ...rest
+    } = req.body;
+
+    try {
+      const prod = await Product.findOne({
+        where: {
+          id
+        }
+      });
+      if (prod === null) throw "Error, this product was not found.";
+      const updtProd = await Product.update({ ...rest
+      }, {
+        where: {
+          id
+        }
+      });
+      return res.json(updtProd[0]);
+    } catch (error) {
+      return res.json(error);
+    }
   }
 
 };
