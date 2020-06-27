@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from "../database/mongodb/models/User";
 import { emptyOrNull } from "../config/validation";
 
 export const save = async (req, res) => {
@@ -45,14 +45,14 @@ export const updateUser = async (req, res) => {
     emptyOrNull(doc, "sem dados para alteração");
 
     await User.findByIdAndUpdate(id, doc, { new: true })
-      .then(docs => {
+      .then((docs) => {
         if (docs) {
           res.send({ docs });
         } else {
           throw "Alteração não pode ser feita";
         }
       })
-      .catch(err => {
+      .catch((err) => {
         throw err;
       });
   } catch (err) {

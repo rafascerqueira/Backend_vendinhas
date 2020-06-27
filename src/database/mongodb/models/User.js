@@ -1,4 +1,4 @@
-import mongoose from "../database/mongodb";
+import mongoose from "..";
 import bcrypt from "bcryptjs";
 
 const salt = bcrypt.genSaltSync();
@@ -8,28 +8,28 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-    lowercase: true
+    lowercase: true,
   },
   fullname: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
     type: String,
     required: true,
-    select: false
+    select: false,
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   admin: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
-UserSchema.pre("save", function(next) {
+UserSchema.pre("save", function (next) {
   const hash = bcrypt.hashSync(this.password, salt);
   this.password = hash;
 

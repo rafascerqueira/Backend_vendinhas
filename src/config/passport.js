@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
-import User from "../models/User";
+import User from "../database/mongodb/models/User";
 
 import "dotenv/config";
 const secret = process.env.AUTH_SECRET;

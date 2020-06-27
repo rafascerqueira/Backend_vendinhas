@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import User from "../models/User";
+import User from "../database/mongodb/models/User";
 import { emptyOrNull, isTokenExpired } from "./validation";
 
 import "dotenv/config";
