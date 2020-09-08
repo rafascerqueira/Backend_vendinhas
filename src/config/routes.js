@@ -25,6 +25,11 @@ import {
   index as showSales,
 } from "../controllers/shopHandler";
 
+import {
+  index as getBill,
+  store as newBill,
+} from "../controllers/billingHandler";
+
 import { signin, validateToken } from "./auth";
 import passport from "./passport";
 
@@ -65,5 +70,7 @@ routes
   .put(updtOrder);
 
 routes.route("/sale").all(auth.authenticate()).get(showSales).post(newSale);
+
+routes.route("/billing").all(auth.authenticate()).get(getBill).post(newBill);
 
 export default routes;
