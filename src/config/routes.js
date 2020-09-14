@@ -28,6 +28,7 @@ import {
 import {
   index as getBill,
   store as newBill,
+  update as downBill,
 } from "../controllers/billingHandler";
 
 import { signin, validateToken } from "./auth";
@@ -71,6 +72,11 @@ routes
 
 routes.route("/sale").all(auth.authenticate()).get(showSales).post(newSale);
 
-routes.route("/billing").all(auth.authenticate()).get(getBill).post(newBill);
+routes
+  .route("/billing")
+  .all(auth.authenticate())
+  .get(getBill)
+  .post(newBill)
+  .put(downBill);
 
 export default routes;

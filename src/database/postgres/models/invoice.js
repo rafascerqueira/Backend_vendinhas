@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   Invoice.associate = function (models) {
     // associations can be defined here
-    Invoice.belongsTo(models.Order, { foreignKey: "order_id", as: "order" });
+    Invoice.belongsTo(models.Order, { foreignKey: "order_id" });
   };
   return Invoice;
 };
