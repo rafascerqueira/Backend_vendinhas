@@ -16,9 +16,9 @@ module.exports = {
       if (hasCustomer.length < 1) throw "Error, cannot find customer.";
 
       const order = await Order.create({ customer_id: id });
-      return res.json(order);
+      return res.status(201).json(order);
     } catch (error) {
-      return res.json(error);
+      return res.status(404).json(error);
     }
   },
 
@@ -33,7 +33,7 @@ module.exports = {
 
       return res.json(updtOrder);
     } catch (error) {
-      return res.json(error);
+      return res.status(400).json(error);
     }
   },
 };

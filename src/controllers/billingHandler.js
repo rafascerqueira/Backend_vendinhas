@@ -22,9 +22,9 @@ module.exports = {
 
       const invoice = await Invoice.create({ order_id: id, invoiced: false });
 
-      return res.json(invoice);
+      return res.status(201).json(invoice);
     } catch (error) {
-      return res.json(error);
+      return res.status(404).json(error);
     }
   },
 
@@ -37,7 +37,7 @@ module.exports = {
       );
       return res.json(paid);
     } catch (error) {
-      return res.json(error);
+      return res.status(400).json(error);
     }
   },
 };

@@ -12,9 +12,9 @@ module.exports = {
 
     try {
       const customer = await Customer.create({ fullname, email });
-      return res.json(customer);
+      return res.status(201).json(customer);
     } catch (error) {
-      return res.json(error);
+      return res.status(404).json(error);
     }
   },
 };
