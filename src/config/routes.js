@@ -19,6 +19,7 @@ import {
   store as newOrder,
   index as showOrders,
   update as updtOrder,
+  showSelectedOrders,
 } from "../controllers/orderHandler";
 import {
   store as newSale,
@@ -29,6 +30,7 @@ import {
   index as getBill,
   store as newBill,
   update as downBill,
+  showSelectedBills,
 } from "../controllers/billingHandler";
 
 import { signin, validateToken } from "./auth";
@@ -70,6 +72,8 @@ routes
   .post(newOrder)
   .put(updtOrder);
 
+routes.route("/order/list").all(auth.authenticate()).post(showSelectedOrders);
+
 routes.route("/sale").all(auth.authenticate()).get(showSales).post(newSale);
 
 routes
@@ -78,5 +82,7 @@ routes
   .get(getBill)
   .post(newBill)
   .put(downBill);
+
+routes.route("/billing/bills").all(auth.authenticate()).post(showSelectedBills);
 
 export default routes;

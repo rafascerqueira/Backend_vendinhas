@@ -5,12 +5,25 @@ module.exports = {
     try {
       const bill = await Invoice.findAll({
         include: [{ model: Order, include: [{ model: Customer }] }],
-        where: { invoiced: false },
       });
 
       return res.json(bill);
     } catch (error) {
       return res.json(error);
+    }
+  },
+
+  async showSelectedBills(req, res) {
+    const { invoiced } = req.body;
+    try {
+      const bills = await Invoice.findAll({
+        include: [{ model: Order, include: [{ model: Customer }] }],
+        where: { invoiced },
+      });
+
+      return res.json(bills);
+    } catch (error) {
+      return res.status(404).json(error);
     }
   },
 

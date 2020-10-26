@@ -7,6 +7,20 @@ module.exports = {
     return res.json(order);
   },
 
+  async showSelectedOrders(req, res) {
+    const { status } = req.body;
+    try {
+      const orders = await Order.findAll({
+        include: [{ model: Customer }],
+        where: { status },
+      });
+
+      return res.json(orders);
+    } catch (error) {
+      return res.status(404).json(error);
+    }
+  },
+
   async store(req, res) {
     const id = req.body.id;
 
