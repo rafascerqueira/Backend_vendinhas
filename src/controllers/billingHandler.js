@@ -42,12 +42,9 @@ module.exports = {
   },
 
   async update(req, res) {
-    const { id, status } = req.body;
+    const { id, invoiced } = req.body;
     try {
-      const paid = await Invoice.update(
-        { invoiced: status },
-        { where: { id } }
-      );
+      const paid = await Invoice.update({ invoiced }, { where: { id } });
       return res.json(paid);
     } catch (error) {
       return res.status(400).json(error);

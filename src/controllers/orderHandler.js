@@ -50,4 +50,16 @@ module.exports = {
       return res.status(400).json(error);
     }
   },
+
+  async delete(req, res) {
+    const { id } = req.body;
+
+    try {
+      const order = await Order.destroy({ where: { id } });
+      if (order < 1) throw "Error, purchase order do not exists.";
+      return res.json(order);
+    } catch (error) {
+      return res.status(404).json(error);
+    }
+  },
 };

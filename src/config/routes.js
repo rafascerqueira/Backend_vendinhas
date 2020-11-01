@@ -19,6 +19,7 @@ import {
   store as newOrder,
   index as showOrders,
   update as updtOrder,
+  delete as deleteOrder,
   showSelectedOrders,
 } from "../controllers/orderHandler";
 import {
@@ -70,7 +71,8 @@ routes
   .all(auth.authenticate())
   .get(showOrders)
   .post(newOrder)
-  .put(updtOrder);
+  .put(updtOrder)
+  .delete(deleteOrder);
 
 routes.route("/order/list").all(auth.authenticate()).post(showSelectedOrders);
 
