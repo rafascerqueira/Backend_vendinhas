@@ -17,6 +17,8 @@ var _orderHandler = require("../controllers/orderHandler");
 
 var _shopHandler = require("../controllers/shopHandler");
 
+var _billingHandler = require("../controllers/billingHandler");
+
 var _auth = require("./auth");
 
 var _passport = _interopRequireDefault(require("./passport"));
@@ -33,8 +35,11 @@ routes.route("/users").all(auth.authenticate()).get(_userHandler.getUser);
 routes.route("/users/:id").all(auth.authenticate()).get(_userHandler.getUser).put(_userHandler.updateUser).delete(_userHandler.deleteUser);
 routes.route("/customer").all(auth.authenticate()).get(_customerHandler.index).post(_customerHandler.store);
 routes.route("/product").all(auth.authenticate()).get(_productHandler.index).post(_productHandler.store).put(_productHandler.update);
-routes.route("/order").all(auth.authenticate()).get(_orderHandler.index).post(_orderHandler.store).put(_orderHandler.update);
+routes.route("/order").all(auth.authenticate()).get(_orderHandler.index).post(_orderHandler.store).put(_orderHandler.update).delete(_orderHandler.delete);
+routes.route("/order/list").all(auth.authenticate()).post(_orderHandler.showSelectedOrders);
 routes.route("/sale").all(auth.authenticate()).get(_shopHandler.index).post(_shopHandler.store);
+routes.route("/billing").all(auth.authenticate()).get(_billingHandler.index).post(_billingHandler.store).put(_billingHandler.update);
+routes.route("/billing/bills").all(auth.authenticate()).post(_billingHandler.showSelectedBills);
 var _default = routes;
 exports.default = _default;
 //# sourceMappingURL=routes.js.map

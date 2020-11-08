@@ -49,9 +49,9 @@ module.exports = {
           id: orderId
         }
       });
-      return res.json(purchase);
+      return res.status(201).json(purchase);
     } catch (error) {
-      return res.json(error);
+      return res.status(404).json(error);
     }
   }
 

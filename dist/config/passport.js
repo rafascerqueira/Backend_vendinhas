@@ -9,7 +9,7 @@ var _passport = _interopRequireDefault(require("passport"));
 
 var _passportJwt = require("passport-jwt");
 
-var _User = _interopRequireDefault(require("../models/User"));
+var _User = _interopRequireDefault(require("../database/mongodb/models/User"));
 
 require("dotenv/config");
 

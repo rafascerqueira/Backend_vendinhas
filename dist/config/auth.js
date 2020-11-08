@@ -9,7 +9,7 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 
-var _User = _interopRequireDefault(require("../models/User"));
+var _User = _interopRequireDefault(require("../database/mongodb/models/User"));
 
 var _validation = require("./validation");
 

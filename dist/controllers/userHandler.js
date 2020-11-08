@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.deleteUser = exports.updateUser = exports.getUser = exports.save = void 0;
 
-var _User = _interopRequireDefault(require("../models/User"));
+var _User = _interopRequireDefault(require("../database/mongodb/models/User"));
 
 var _validation = require("../config/validation");
 

@@ -21,13 +21,18 @@ module.exports = {
       size,
       price
     } = req.body;
-    const prod = await Product.create({
-      name,
-      unit,
-      size,
-      price
-    });
-    return res.json(prod);
+
+    try {
+      const prod = await Product.create({
+        name,
+        unit,
+        size,
+        price
+      });
+      return res.status(201).json(prod);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   },
 
   async update(req, res) {
@@ -51,7 +56,7 @@ module.exports = {
       });
       return res.json(updtProd[0]);
     } catch (error) {
-      return res.json(error);
+      return res.status(400).json(error);
     }
   }
 

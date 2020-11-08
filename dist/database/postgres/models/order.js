@@ -9,10 +9,11 @@ module.exports = (sequelize, DataTypes) => {
 
   Order.associate = function (models) {
     Order.belongsTo(models.Customer, {
-      foreignKey: "customer_id",
-      as: "customer"
+      foreignKey: "customer_id"
     });
-    Order.hasOne(models.Invoice);
+    Order.hasOne(models.Invoice, {
+      foreignKey: "order_id"
+    });
     Order.belongsToMany(models.Product, {
       foreignKey: "product_id",
       through: models.Order_items
