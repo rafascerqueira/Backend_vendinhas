@@ -9,26 +9,26 @@
     "start": "node ./dist/index.js"
   },
   "dependencies": {
-    "bcryptjs": "~2.4.3",
-    "cors": "~2.8.5",
-    "dotenv": "~8.2.0",
-    "express": "~4.17.1",
-    "jsonwebtoken": "~8.5.1",
-    "mongoose": "^5.11.14",
-    "passport": "~0.4.0",
-    "passport-jwt": "~4.0.0",
-    "pg": "~7.12.1",
-    "pg-hstore": "~2.3.3",
-    "sequelize": "~5.21.13"
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.19",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/node": "^7.12.10",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/register": "^7.12.10",
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/node": "^7.13.10",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/register": "^7.13.16",
     "nodemon": "^2.0.7",
-    "sequelize-cli": "~5.5.1"
+    "sequelize-cli": "^6.2.0"
   }
 }

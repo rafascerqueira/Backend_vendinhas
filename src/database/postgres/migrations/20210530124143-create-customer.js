@@ -1,24 +1,26 @@
 "use strict";
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Products", {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.sequelize.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+    );
+
+    await queryInterface.createTable("Customers", {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      unit: {
+      email: {
         type: Sequelize.STRING,
       },
-      size: {
+      phone: {
         type: Sequelize.STRING,
-      },
-      price: {
-        type: Sequelize.DECIMAL(10, 2),
       },
       createdAt: {
         allowNull: false,
@@ -30,7 +32,7 @@ module.exports = {
       },
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Products");
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("Customers");
   },
 };

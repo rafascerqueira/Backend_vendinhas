@@ -1,26 +1,21 @@
 "use strict";
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Orders", {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("Invoices", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      customer_id: {
+      order_id: {
         type: Sequelize.INTEGER,
-        references: { model: "Customers", key: "id" },
+        references: { model: "Orders", key: "id" },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      total_amount: {
-        type: Sequelize.DECIMAL(10, 2),
-        defaultValue: 0.0,
-      },
-      status: {
+      invoiced: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false,
       },
       createdAt: {
         allowNull: false,
@@ -32,7 +27,7 @@ module.exports = {
       },
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Orders");
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("Invoices");
   },
 };
