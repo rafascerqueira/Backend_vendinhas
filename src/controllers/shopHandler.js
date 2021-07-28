@@ -8,7 +8,7 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { orderId, productId, quantity } = req.body;
+    const { orderId, productId, quantity, total_amount } = req.body;
 
     try {
       const purchase = await Order_items.create({
@@ -17,23 +17,15 @@ module.exports = {
         quantity,
       });
 
-      const { price } = await Product.findOne({
-        attributes: ["price"],
-        where: { id: productId },
-      });
-
-      const { total_amount } = await Order.findOne({
-        attributes: ["total_amount"],
-        where: { id: orderId },
-      });
-
-      const amount = parseFloat(total_amount) + price * quantity;
-
-      await Order.update({ total_amount: amount }, { where: { id: orderId } });
+      await Order.update({ total_amount }, { where: { id: orderId } });
 
       return res.status(201).json(purchase);
     } catch (error) {
       return res.status(404).json(error);
     }
+  },
+
+  async update(req, res) {
+    const order = req.body;
   },
 };
