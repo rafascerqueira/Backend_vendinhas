@@ -1,4 +1,14 @@
-/node_modules
+# Folders
+.idea/
+.vscode/
+node_modules/
+build/
+tmp/
+temp/
+
+# FIles
 .env
+private-key.pem
+public-key.pem
 yarn.lock
 package-lock.json
