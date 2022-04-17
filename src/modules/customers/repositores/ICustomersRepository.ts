@@ -7,4 +7,5 @@ export interface ICustomersRepository {
   findByEmail: (email: string) => Promise<Customer | null>;
   findById: (id: string) => Promise<Customer | null>;
   update: (id: string, payload: IUpdateCustomerDTO) => Promise<Customer>;
+  delete: (id: string) => Promise<Customer>;
 }

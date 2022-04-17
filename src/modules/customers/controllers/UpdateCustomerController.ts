@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { UpdateCustomerUseCase } from "../useCases/UpdateCustomerUseCase";
 
 export class UpdateCustomerController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const payload = request.body;
 
