@@ -24,9 +24,70 @@ model Customer {
   id          String    @id @default(uuid())
   name        String
   email       String    @unique
+  orders	    Order[]
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
 
   @@map("customer")
 }
 
+model Product {
+  id					Int	  		@id @default(autoincrement())
+  name        String		
+  description	String		
+  price	      Price?
+  orders	    Order_product[]
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@map("product")
+}
+
+model Price {
+  id	        Int 	    @id @default(autoincrement())
+  product	    Product	  @relation(fields: [product_id], references: [id])
+  product_id	Int
+  value	      Decimal	  @db.Decimal(6,2)
+  is_current	Boolean	  @default(true)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@map("price")
+}
+
+model Order {
+  id	        Int	      @id @default(autoincrement())
+  customer	  Customer	@relation(fields: [customer_id], references: [id])
+  customer_id	String
+  amount	    Decimal	  @db.Decimal(6,2)
+  products	  Order_product[]
+  billing	    Billing?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@map("order")
+}
+
+model Order_product {
+  order	      Order	    @relation(fields: [order_id], references: [id])
+  order_id	  Int
+  product	    Product	  @relation(fields: [product_id], references: [id])
+  product_id	Int
+  quantity	  Int	      @default(1)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@id([order_id, product_id])
+  @@map("order_product")
+}
+
+model Billing {
+  id	        Int	      @id @default(autoincrement())
+  order	      Order	    @relation(fields: [order_id], references: [id])
+  order_id	  Int
+  billed	    Boolean	  @default(false)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@map("billing")
+}
