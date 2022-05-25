@@ -6,9 +6,9 @@ export class CreateProductController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { name, description, price } = request.body;
 
-    const createCustomer = container.resolve(CreateProductUseCase);
+    const createProduct = container.resolve(CreateProductUseCase);
 
-    await createCustomer.execute({ name, description, price });
+    await createProduct.execute({ name, description, price });
 
     return response.status(201).send();
   }

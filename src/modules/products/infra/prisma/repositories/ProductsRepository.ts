@@ -1,4 +1,5 @@
 import { ICreateProductDTO } from "@modules/products/dtos/ICreateProductDTO";
+import { IUpdateProductDTO } from "@modules/products/dtos/IUpdateProductDTO";
 import { IPricedProduct } from "@modules/products/interfaces/IPricedProduct";
 import { IProductsRepository } from "@modules/products/repositories/IProductsRepository";
 import { PrismaClient, Product } from "@prisma/client";
@@ -46,5 +47,36 @@ export class ProductsRepository implements IProductsRepository {
     });
 
     return product;
+  }
+
+  async getAll(): Promise<Product[]> {
+    return await this.repository.product.findMany();
+  }
+
+  async update(
+    id: number,
+    { description, name, price }: IUpdateProductDTO
+  ): Promise<Product> {
+    return await this.repository.product.update({
+      where: { id },
+      data: {
+        description,
+        name,
+        price: {
+          update: {
+            value: price,
+          },
+        },
+      },
+    });
+  }
+
+  async delete(id: number): Promise<Product> {
+    const [_, deleteProduct] = await this.repository.$transaction([
+      this.repository.price.delete({ where: { product_id: id } }),
+      this.repository.product.delete({ where: { id } }),
+    ]);
+
+    return deleteProduct;
   }
 }

@@ -8,17 +8,15 @@ import { IProductsRepository } from "../repositories/IProductsRepository";
 export class CreateProductUseCase {
   constructor(
     @inject(TYPES.ProductsRepository)
-    private customersRepository: IProductsRepository
+    private productsRepository: IProductsRepository
   ) {}
 
   async execute({ name, description, price }: ICreateProductDTO) {
-    const productAlreadyExists = await this.customersRepository.findByName(
-      name
-    );
+    const productAlreadyExists = await this.productsRepository.findByName(name);
 
     if (productAlreadyExists) throw new AppError("Customer already exists");
 
-    const product = await this.customersRepository.create({
+    const product = await this.productsRepository.create({
       name,
       description,
       price,
