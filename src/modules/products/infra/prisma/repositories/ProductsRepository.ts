@@ -1,6 +1,5 @@
 import { ICreateProductDTO } from "@modules/products/dtos/ICreateProductDTO";
 import { IUpdateProductDTO } from "@modules/products/dtos/IUpdateProductDTO";
-import { IPricedProduct } from "@modules/products/interfaces/IPricedProduct";
 import { IProductsRepository } from "@modules/products/repositories/IProductsRepository";
 import { PrismaClient, Product } from "@prisma/client";
 import { injectable } from "inversify";
@@ -34,7 +33,9 @@ export class ProductsRepository implements IProductsRepository {
   async findById(id: number): Promise<Product | null> {
     const product = await this.repository.product.findUnique({
       where: { id },
-      include: { price: { select: { value: true } } },
+      include: {
+        price: { select: { value: true }, where: { is_current: true } },
+      },
     });
 
     return product;
@@ -43,7 +44,9 @@ export class ProductsRepository implements IProductsRepository {
   async findByName(name: string): Promise<Product | null> {
     const product = await this.repository.product.findFirst({
       where: { name },
-      include: { price: { select: { value: true } } },
+      include: {
+        price: { select: { value: true }, where: { is_current: true } },
+      },
     });
 
     return product;
@@ -53,27 +56,47 @@ export class ProductsRepository implements IProductsRepository {
     return await this.repository.product.findMany();
   }
 
-  async update(
-    id: number,
-    { description, name, price }: IUpdateProductDTO
-  ): Promise<Product> {
-    return await this.repository.product.update({
-      where: { id },
-      data: {
-        description,
-        name,
-        price: {
-          update: {
-            value: price,
+  async update(id: number, data: IUpdateProductDTO): Promise<Product> {
+    const { name, description, price } = data;
+
+    if (price) {
+      const value = parseFloat(price).toFixed(2);
+
+      const [_, updateProduct] = await this.repository.$transaction([
+        this.repository.price.updateMany({
+          where: { product_id: id },
+          data: {
+            is_current: false,
           },
+        }),
+        this.repository.product.update({
+          where: { id },
+          data: {
+            name,
+            description,
+            price: {
+              create: {
+                value,
+              },
+            },
+          },
+        }),
+      ]);
+      return updateProduct;
+    } else {
+      return await this.repository.product.update({
+        where: { id },
+        data: {
+          name,
+          description,
         },
-      },
-    });
+      });
+    }
   }
 
   async delete(id: number): Promise<Product> {
     const [_, deleteProduct] = await this.repository.$transaction([
-      this.repository.price.delete({ where: { product_id: id } }),
+      this.repository.price.deleteMany({ where: { product_id: id } }),
       this.repository.product.delete({ where: { id } }),
     ]);
 

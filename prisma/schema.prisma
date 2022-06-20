@@ -9,7 +9,7 @@ datasource db {
 
 
 model User {
-  id          String    @id @default(uuid())
+  id          String    @id	@default(uuid())
   name        String
   email       String    @unique
   password    String
@@ -35,7 +35,7 @@ model Product {
   id					Int	  		@id @default(autoincrement())
   name        String		
   description	String		
-  price	      Price?
+  price	      Price[]
   orders	    Order_product[]
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -47,7 +47,7 @@ model Price {
   id	        Int 	    @id @default(autoincrement())
   product	    Product	  @relation(fields: [product_id], references: [id])
   product_id	Int
-  value	      Decimal	  @db.Decimal(6,2)
+  value	      Decimal	  @db.Decimal(6,2)	@default(0.00) 
   is_current	Boolean	  @default(true)
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
