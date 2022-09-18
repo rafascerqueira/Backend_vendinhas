@@ -59,7 +59,7 @@ model Order {
   id	        Int	      @id @default(autoincrement())
   customer	  Customer	@relation(fields: [customer_id], references: [id])
   customer_id	String
-  amount	    Decimal	  @db.Decimal(6,2)
+  amount	    Decimal	  @db.Decimal(6,2)	@default(0.00)
   products	  Order_product[]
   billing	    Billing?
   created_at  DateTime  @default(now())
@@ -69,7 +69,7 @@ model Order {
 }
 
 model Order_product {
-  order	      Order	    @relation(fields: [order_id], references: [id])
+  order	      Order	    @relation(fields: [order_id], references: [id], onDelete: Cascade)
   order_id	  Int
   product	    Product	  @relation(fields: [product_id], references: [id])
   product_id	Int
@@ -84,7 +84,7 @@ model Order_product {
 model Billing {
   id	        Int	      @id @default(autoincrement())
   order	      Order	    @relation(fields: [order_id], references: [id])
-  order_id	  Int
+  order_id	  Int @unique
   billed	    Boolean	  @default(false)
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt

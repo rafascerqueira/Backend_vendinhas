@@ -8,6 +8,6 @@ export class GetAllProductController {
 
     const products = await getAllProduct.execute();
 
-    return response.status(201).json(products);
+    return response.json(products);
   }
 }
