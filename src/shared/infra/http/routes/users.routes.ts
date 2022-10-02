@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { CreateUserController } from "modules/users/controllers/CreateUserController";
+import { CreateUserController } from "@modules/users/controllers/CreateUserController";
 import { AuthenticateUserController } from "@modules/users/controllers/AuthenticateUserController";
 import { ShowUserController } from "@modules/users/controllers/ShowUserController";
 
