@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  database:
+    image: postgres:14.5-alpine
+    container_name: database_vendinhas
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=app_vendinhas
+    volumes:
+      - pgdata:/data/postgres
+
+  app:
+    build: .
+    container_name: backendinhas
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/usr/app
+    links:
+      - database
+    depends_on:
+      - database
+
+volumes:
+  pgdata:
+    driver: local
