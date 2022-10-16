@@ -6,7 +6,7 @@ build/
 tmp/
 temp/
 
-# FIles
+# Files
 .env
 private-key.pem
 public-key.pem
