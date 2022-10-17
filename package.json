@@ -5,6 +5,8 @@
   "engines": {
     "node": "16.17.0"
   },
+  "repository": "git@github.com:rafascerqueira/Backend_vendinhas.git",
+  "author": "Rafael Cerqueira <rafascerqueira.dev@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
