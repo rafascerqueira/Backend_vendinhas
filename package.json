@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
-    "node": "16.17.0"
+    "node": "20.15.1"
   },
   "repository": "git@github.com:rafascerqueira/Backend_vendinhas.git",
   "author": "Rafael Cerqueira <rafascerqueira.dev@gmail.com>",
