@@ -1,1 +1,0 @@
-{"version":3,"file":"JWTInvalidTokenError.js","sourceRoot":"","sources":["../../../src/shared/errors/JWTInvalidTokenError.ts"],"names":[],"mappings":";;;AAAA,yCAAsC;AAEtC,MAAa,oBAAqB,SAAQ,mBAAQ;IAChD;QACE,KAAK,CAAC,6BAA6B,EAAE,GAAG,CAAC,CAAC;IAC5C,CAAC;CACF;AAJD,oDAIC"}
